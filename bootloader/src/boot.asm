@@ -1,4 +1,7 @@
+
+
 [org 0x7C00]
+[bits 16]
 
 mov [BOOT_DRIVE], dl
 ;;--- Setup the stack !
@@ -10,7 +13,7 @@ xor bx, bx
 xor dx, dx
 
 mov bx, 0x9000
-mov dh, 5
+mov dh, 2
 mov dl, [BOOT_DRIVE]
 call disk_load
 
@@ -31,15 +34,39 @@ call print_string
 lea bx, cacao_log_msg
 call print_string
 
-jmp $
+call switch_to_pm
 
 %include "include/display.asm"
 %include "include/disk.asm"
+%include "include/gdt.asm"
+%include "include/pm.asm"
+%include "include/video.asm"
 
-;cacao_bootloader_msg: 
-;db "Bootloader Cacao_OS is booting please wait !",0
+[bits 32]
+start_protected_mode:
+mov ax, DATA_SEG
+mov ds, ax
+mov ss, ax
+mov es, ax
+mov fs, ax
+mov gs, ax
+
+mov ebp, 0x90000
+mov esp, ebp
+
+call BEGIN_PM
+
+BEGIN_PM:
+    mov ebx, protected_mode
+    call print_string_pm
+    jmp $
+
+
 cacao_log_msg:
 db 13,10,"[INFO] Bootloader reached Stage 0",0
+
+protected_mode:
+db "[INFO] Bootloader enabled Protected Mode",0
 
 hex_template:
 db "0000",0
@@ -51,4 +78,5 @@ dw 0xaa55
 
 times 256 dw 0xdada
 times 256 dw 0xface
+
 
