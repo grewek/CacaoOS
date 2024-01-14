@@ -1,2 +1,2 @@
 #!/bin/bash
-nasm src/boot.s -f bin -o bin/boot.bin
+nasm src/boot.asm -f bin -o bin/boot.bin
