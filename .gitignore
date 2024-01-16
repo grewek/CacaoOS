@@ -1,2 +1,5 @@
-/bootloader/bin
-/cacaokernel/bin
+/bootloader/bin/
+/cacaoKernel/bin/
+*.img
+*.bin
+*.o
