@@ -1,0 +1,2 @@
+floppya: 1_44=CacaoOs_floppy.img, status=inserted
+boot: a
