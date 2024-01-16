@@ -13,4 +13,8 @@ A hobby os to satisfy my own curiosity !
 * Jump into Protected Mode
 * Jump into Long Mode
 
-## Kernel Features:
+## C Kernel Features:
+* Can put a single letter in white color to the screen
+
+## Rust Kernel Features:
+* None yet but i want one :D
