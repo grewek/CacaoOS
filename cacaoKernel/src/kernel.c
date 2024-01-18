@@ -9,5 +9,6 @@ typedef signed char i16;
 typedef signed char i32;
 
 void main() {
+    video_test_writes();
     video_buffer_simple_write();
 }
