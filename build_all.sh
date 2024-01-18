@@ -10,9 +10,17 @@ cd bootloader
 #This should be static at 512 bytes maybe we should make a error state ?
 bootloader_size=$(stat -c %s "bin/boot.bin")
 
+#Build the drivers
 cd $project_root
+echo "Building the drivers"
+cd drivers
+
+. build.sh
+
+
 
 #Build our kernel
+cd $project_root
 echo "Building Kernel"
 cd cacaoKernel
 . build.sh
