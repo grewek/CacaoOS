@@ -34,6 +34,8 @@ typedef enum ColorAttrib {
 } ColorAttrib;
 
 void video_test_writes();
+void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg);
+void test_kputstr();
 void video_buffer_simple_write();
 
 #endif
