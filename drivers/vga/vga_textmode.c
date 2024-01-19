@@ -7,6 +7,11 @@ u16 GenerateVideoCoordinate(u16 x, u16 y) {
     return y * SCREEN_WIDTH + x;    
 }
 
+u8 GenerateColorAttribute(ColorAttrib fg, ColorAttrib bg) {
+    u8 result = ((u8)bg << 4 | (u8)fg);
+    return result;
+}
+
 //This is a test function as i currently have no way of writing tests i probably have to do manual testing
 void video_test_writes() {
     //Check if we can write onto the start of the video buffer in consecutive order without gaps !
