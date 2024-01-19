@@ -19,6 +19,12 @@ void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg) {
         *videoMemory++ = (u16)GenerateColorAttribute(fg, bg) << 8 | str[i];
     }
 }
+
+void test_kputstr() {
+    const char *hello = "Hello World of Kernel Programming !";
+    kputstr(hello, 35, WHITE, BLACK);
+}
+
 //This is a test function as i currently have no way of writing tests i probably have to do manual testing
 void video_test_writes() {
     //Check if we can write onto the start of the video buffer in consecutive order without gaps !
