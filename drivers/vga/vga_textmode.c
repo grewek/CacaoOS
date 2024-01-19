@@ -1,8 +1,5 @@
 #include "vga_textmode.h"
 //TODO(Kay): We got repetition here so we need a general type header like stdint cacaoTypes.h ? :)
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
 
 typedef signed char i8;
 typedef signed char i16;
