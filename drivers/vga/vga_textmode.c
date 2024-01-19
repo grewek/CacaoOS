@@ -49,8 +49,6 @@ void video_test_writes() {
 }
 
 void video_buffer_simple_write() {
-
-
-    u16 *videoMemory = (u16 *)0xb8000;
-    *videoMemory = (u16)0x0f << 8 | (u16) 'A';
+    //u16 *videoMemory = (u16 *)0xb8000;
+    //*videoMemory = (u16)0x0f << 8 | (u16) 'A';
 }
