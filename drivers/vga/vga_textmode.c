@@ -1,10 +1,6 @@
 #include "vga_textmode.h"
 //TODO(Kay): We got repetition here so we need a general type header like stdint cacaoTypes.h ? :)
 
-typedef signed char i8;
-typedef signed char i16;
-typedef signed char i32;
-
 
 //Calculates the coordinate of the character 
 u16 GenerateVideoCoordinate(u16 x, u16 y) {
