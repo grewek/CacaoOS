@@ -12,6 +12,13 @@ u8 GenerateColorAttribute(ColorAttrib fg, ColorAttrib bg) {
     return result;
 }
 
+void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg) {
+    u16 *videoMemory = (u16 *)0xb8000;
+    
+    for(i32 i = 0; i < strlen; i++) {
+        *videoMemory++ = (u16)GenerateColorAttribute(fg, bg) << 8 | str[i];
+    }
+}
 //This is a test function as i currently have no way of writing tests i probably have to do manual testing
 void video_test_writes() {
     //Check if we can write onto the start of the video buffer in consecutive order without gaps !
