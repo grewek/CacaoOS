@@ -16,19 +16,19 @@ u8 GenerateColorAttribute(ColorAttrib fg, ColorAttrib bg) {
 void video_test_writes() {
     //Check if we can write onto the start of the video buffer in consecutive order without gaps !
     u16 *videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(0, 0));
-    *videoMemory = (u16)0x0f << 8 | (u16) 'S';
+    *videoMemory = (u16)GenerateColorAttribute(WHITE, BLUE) << 8 | (u16) 'S';
 
     videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(1, 0));
-    *videoMemory = (u16)0x0f << 8 | (u16) 'T';
+    *videoMemory = (u16)GenerateColorAttribute(WHITE, BLUE) << 8 | (u16) 'T';
 
     videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(2, 0));
-    *videoMemory = (u16)0x0f << 8 | (u16) 'A';
+    *videoMemory = (u16)GenerateColorAttribute(WHITE, BLUE) << 8 | (u16) 'A';
 
     videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(3, 0));
-    *videoMemory = (u16)0x0f << 8 | (u16) 'R';
+    *videoMemory = (u16)GenerateColorAttribute(WHITE, BLUE) << 8 | (u16) 'R';
 
     videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(4, 0));
-    *videoMemory = (u16)0x0f << 8 | (u16) 'T';
+    *videoMemory = (u16)GenerateColorAttribute(WHITE, BLUE) << 8 | (u16) 'T';
 
     //Check if the we can move our "cursor" onto the next line and write there with no gaps !
     videoMemory = (u16 *)0xb8000 + (GenerateVideoCoordinate(0, 1));
