@@ -34,6 +34,16 @@ typedef enum ColorAttrib {
     WHITE = 0x0f,
 } ColorAttrib;
 
+typedef struct DisplayWriter {
+    u16 *currentPosition; //Field should always be initalized with VIDEO_MEMORY_PTR_START
+    
+    ColorAttrib defaultFG; //Determines what color the Display writer uses for the foreground by default
+    ColorAttrib defaultBG; //Determines what color the Display writer uses for the background by default
+
+    u16 cellX; //Indicates the next X(Columns) Position that can be written into.
+    u16 cellY; //Indicates the next Y(Row) Position that can be written into.
+} DisplayWriter;
+
 void video_test_writes();
 void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg);
 void test_kputstr();
