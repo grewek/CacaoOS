@@ -8,6 +8,8 @@ typedef signed char i8;
 typedef signed char i16;
 typedef signed char i32;
 
+
 void main() {
-    test_kputstr();
+    kernel_putstr("Hello World !", 13);
+    //test_kputstr();
 }
