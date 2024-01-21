@@ -10,8 +10,9 @@ typedef signed char i16;
 typedef signed char i32;
 typedef signed int bool;
 
-#define SCREEN_WIDTH        80
-#define SCREEN_HEIGHT       25
+#define VIDEO_MEMPORY_PTR_START     (u16 *)0xb8000
+#define SCREEN_WIDTH                80
+#define SCREEN_HEIGHT               25
 
 typedef enum ColorAttrib {
     BLACK = 0x00,
