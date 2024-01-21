@@ -29,6 +29,30 @@ void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg) {
     }
 }
 
+static void Write(DisplayWriter *writer, const char *str, const u32 len) {
+    //TODO(Kay): This is not working as i would expect it to work this is either due to me
+    //           not doing the initialization of the struct correctly (which might be a possibility)
+    //           or things are not correctly laid out in memory which might be very possible as well:
+    //              SOLUTIONS:
+    //                  1.) Figure out how we initialize a global variable that is static to the current file
+    //                  2.) Write a Linkerscript that makes sure that has a alignment for .data, .bss as well !
+    //                  3.) Despair if none of the above works !
+    if(writer->currentPosition != VIDEO_MEMPORY_PTR_START) {
+        kputstr("[CUTHULU] Struct was not initialized as expected !",50, RED, BLACK);
+    }
+    //kputstr(test_str, 21, WHITE, BLACK);
+    //NOT WORKING ?!
+    //while(*str) {
+    //    writer->currentPosition[GenerateVideoCoordinate(writer->cellX, writer->cellY)] = 
+    //        (((u16)GenerateColorAttribute(writer->defaultFG, writer->defaultBG) << 8) | ((u16)(*str)));
+    //    writer->cellX += 1;
+    //}
+}
+
+extern void kernel_putstr(const char *str, u32 len) {
+    Write(&__DisplayWriter, str, len);
+}
+
 void test_kputstr() {
     const char *hello = "Hello World of Kernel Programming !";
     kputstr(hello, 35, WHITE, BLACK);
