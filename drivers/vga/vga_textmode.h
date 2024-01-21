@@ -49,4 +49,11 @@ void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg);
 void test_kputstr();
 void video_buffer_simple_write();
 
+
+
+//DisplayWriter definition
+static void Write(DisplayWriter *writer, const char *str, const u32 len);
+extern void kernel_putstr(const char *str, u32 len);
+
+//static DisplayWriter __DisplayWriter;
 #endif
