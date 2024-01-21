@@ -1,6 +1,15 @@
 #include "vga_textmode.h"
 //TODO(Kay): We got repetition here so we need a general type header like stdint cacaoTypes.h ? :)
+static DisplayWriter __DisplayWriter = {
+    .currentPosition = (u16 *)VIDEO_MEMPORY_PTR_START,
+    .defaultFG = WHITE,
+    .defaultBG = BLACK,
 
+    .cellX = 0,
+    .cellY = 0,
+};
+
+static const char* test_str = "This is a test string";
 
 //Calculates the coordinate of the character 
 u16 GenerateVideoCoordinate(u16 x, u16 y) {
