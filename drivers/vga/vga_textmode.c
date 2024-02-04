@@ -54,6 +54,14 @@ static void Write(const char *str, const u32 len) {
 extern void kernel_putstr(const char *str, u32 len) {
     //kputstr(test_str, 21, WHITE, BLACK);
     Write(str, len);
+extern void Clear() {   
+    const u16 clearValue = 0x0000;
+    for(u16 nextCell = 0; nextCell < SCREEN_WIDTH * SCREEN_HEIGHT; nextCell++) {
+        VideoPtr[nextCell] = clearValue;
+    }
+
+    CurrentCellX = 0;
+    CurrentCellY = 0;
 }
 
 void test_kputstr() {
