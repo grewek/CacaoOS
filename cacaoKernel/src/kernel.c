@@ -10,6 +10,7 @@ typedef signed char i32;
 
 
 void main() {
-    kernel_putstr("Hello World !", 13);
-    //test_kputstr();
+    Clear();
+    Kernel_Print("[INFO]\tCacao OS Kernel Booted !\n");
+    Kernel_Print("[TEST]\tThis line will overflow the screen size by multiple characters but kernel_print will just increase the line number and print the rest of the text to the next line !");
 }
