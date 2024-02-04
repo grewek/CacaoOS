@@ -41,10 +41,38 @@ static void Write(const char *str) {
         kputstr("[CUTHULU] Struct was not initialized as expected !",50, RED, BLACK);
     }
 
-    //TODO(Kay): Should we advance the Videoptr by the amount of consumed bytes ?
-    //           or is it better to have the Videoptr constant and only treat the
-    //           Videomemory like a linear array ?
     while(*str) {
+        //TODO(Kay): This is my first shot of handling special characters so this might
+        //  need some refactoring ! maybe it's better to pull the code out and put it in
+        //  a different function ?
+        switch(*str) {
+            case '\n': {
+                CurrentCellX = 0;
+                CurrentCellY += 1;
+                str++;
+                continue;
+
+            } break;
+            case '\t': {
+                CurrentCellX += 4;
+                str++;
+                continue;
+            } break;
+        }
+
+        //TODO(Kay): Word-Wrapping ?
+        //Out of Bounds handling !
+        if(CurrentCellX == SCREEN_WIDTH) {
+            CurrentCellX = 0;
+            CurrentCellY += 1;
+        }
+
+        if(CurrentCellY == SCREEN_HEIGHT) {
+            CurrentCellX = 0;
+            CurrentCellY = 0;
+        }
+
+
         VideoPtr[GenerateVideoCoordinate(CurrentCellX, CurrentCellY)] = 
             (((u16)GenerateColorAttribute(ForegroundColor, BackgroundColor) << 8) | ((u16)(*str)));
         CurrentCellX += 1; str++;
@@ -52,8 +80,9 @@ static void Write(const char *str) {
 }
 
 extern void Kernel_Print(const char *str) {
-    //kputstr(test_str, 21, WHITE, BLACK);
-    Write(str, len);
+    Write(str);
+}
+
 extern void Clear() {   
     const u16 clearValue = 0x0000;
     for(u16 nextCell = 0; nextCell < SCREEN_WIDTH * SCREEN_HEIGHT; nextCell++) {
