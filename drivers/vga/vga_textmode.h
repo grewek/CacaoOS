@@ -55,5 +55,8 @@ void video_buffer_simple_write();
 static void Write(const char *str);
 extern void Kernel_Print(const char *str);
 
+//Display Clear functionality
+extern void Clear();
+
 //static DisplayWriter __DisplayWriter;
 #endif
