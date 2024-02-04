@@ -1,5 +1,6 @@
 #include "vga_textmode.h"
-//TODO(Kay): We got repetition here so we need a general type header like stdint cacaoTypes.h ? :)
+
+//TODO(Kay): Give this another shot may it was just the missing entry point that prevented it from working !
 static DisplayWriter __DisplayWriter = {
     .currentPosition = (u16 *)VIDEO_MEMPORY_PTR_START,
     .defaultFG = WHITE,
@@ -8,6 +9,12 @@ static DisplayWriter __DisplayWriter = {
     .cellX = 0,
     .cellY = 0,
 };
+
+u16 *VideoPtr = (u16 *)VIDEO_MEMPORY_PTR_START;
+ColorAttrib ForegroundColor = WHITE;
+ColorAttrib BackgroundColor = BLACK;
+u16 CurrentCellX = 0;
+u16 CurrentCellY = 0;
 
 static const char* test_str = "This is a test string";
 
@@ -29,28 +36,24 @@ void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg) {
     }
 }
 
-static void Write(DisplayWriter *writer, const char *str, const u32 len) {
-    //TODO(Kay): This is not working as i would expect it to work this is either due to me
-    //           not doing the initialization of the struct correctly (which might be a possibility)
-    //           or things are not correctly laid out in memory which might be very possible as well:
-    //              SOLUTIONS:
-    //                  1.) Figure out how we initialize a global variable that is static to the current file
-    //                  2.) Write a Linkerscript that makes sure that has a alignment for .data, .bss as well !
-    //                  3.) Despair if none of the above works !
-    if(writer->currentPosition != VIDEO_MEMPORY_PTR_START) {
+static void Write(const char *str, const u32 len) {
+    if(VideoPtr != VIDEO_MEMPORY_PTR_START) {
         kputstr("[CUTHULU] Struct was not initialized as expected !",50, RED, BLACK);
     }
-    //kputstr(test_str, 21, WHITE, BLACK);
-    //NOT WORKING ?!
-    //while(*str) {
-    //    writer->currentPosition[GenerateVideoCoordinate(writer->cellX, writer->cellY)] = 
-    //        (((u16)GenerateColorAttribute(writer->defaultFG, writer->defaultBG) << 8) | ((u16)(*str)));
-    //    writer->cellX += 1;
-    //}
+
+    //TODO(Kay): Should we advance the Videoptr by the amount of consumed bytes ?
+    //           or is it better to have the Videoptr constant and only treat the
+    //           Videomemory like a linear array ?
+    while(*str) {
+        VideoPtr[GenerateVideoCoordinate(CurrentCellX, CurrentCellY)] = 
+            (((u16)GenerateColorAttribute(ForegroundColor, BackgroundColor) << 8) | ((u16)(*str)));
+        CurrentCellX += 1; str++;
+    }
 }
 
 extern void kernel_putstr(const char *str, u32 len) {
-    Write(&__DisplayWriter, str, len);
+    //kputstr(test_str, 21, WHITE, BLACK);
+    Write(str, len);
 }
 
 void test_kputstr() {
