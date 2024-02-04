@@ -36,7 +36,7 @@ void kputstr(const char *str, u32 strlen, ColorAttrib fg, ColorAttrib bg) {
     }
 }
 
-static void Write(const char *str, const u32 len) {
+static void Write(const char *str) {
     if(VideoPtr != VIDEO_MEMPORY_PTR_START) {
         kputstr("[CUTHULU] Struct was not initialized as expected !",50, RED, BLACK);
     }
@@ -51,7 +51,7 @@ static void Write(const char *str, const u32 len) {
     }
 }
 
-extern void kernel_putstr(const char *str, u32 len) {
+extern void Kernel_Print(const char *str) {
     //kputstr(test_str, 21, WHITE, BLACK);
     Write(str, len);
 extern void Clear() {   
