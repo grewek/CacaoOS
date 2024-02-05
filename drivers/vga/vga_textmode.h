@@ -1,6 +1,8 @@
 #ifndef __VGA_TEXTMODE_H__
 #define __VGA_TEXTMODE_H__
 
+#include "../io/io.h"
+
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
